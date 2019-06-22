@@ -1,0 +1,34 @@
+matlab("load get_fields_dipole.mat");
+matlabget(baseFile,baseFileSave);
+
+load(baseFile);
+
+# Prad
+
+Prad=getresult("trans_box","T");
+lambda=Prad.lambda;
+Prad=Prad.T;
+
+# Pabs
+
+#Ptot=getresult("trans_box_source","T");
+#lambda=Pabs.lambda;
+#Ptot=Ptot.T;
+
+#Purcell=getresult('source','purcell');
+#PurcellLambda=Purcell.lambda;
+#Purcell=Purcell.purcell(370);
+
+
+matlabput(Prad,lambda);
+#matlabput(Prad,Ptot,Purcell,lambda);
+
+
+matlab("done=1; lumError='';");
+matlab("save('get_fields_dipole.mat','done','lumError','Prad','lambda','-append','-v7.3')");
+#matlab("save('get_fields_dipole.mat','done','lumError','Prad','Ptot','Purcell','lambda','-append','-v7.3')");
+
+save(baseFile);
+save(baseFileSave);
+
+matlab("clear"); clear; exit(2);

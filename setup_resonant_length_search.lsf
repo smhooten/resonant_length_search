@@ -1,0 +1,38 @@
+matlab("load setup_resonant_length_search.mat");
+matlabget(baseFile,i,j,lengths,gaps);
+
+load(baseFile);
+switchtolayout;
+
+lengths=lengths(i);
+gaps=gaps(j);
+
+radius=25e-9;
+
+l=lengths-gaps;
+
+select('antennaR');
+set('x',gaps/2+l/4);
+set('x span',l/2);
+
+select('antennaL');
+set('x',-gaps/2-l/4);
+set('x span',l/2);
+
+
+select('trans_box');
+set('x span',lengths+10e-9);
+
+select('finemesh');
+set('x span',lengths+15e-9);
+
+select('finemesh2');
+set('x span',2*gaps);
+
+run;
+
+matlab("done=1; lumError='';");
+matlab("save('setup_resonant_length_search.mat','done','lumError','-append','-v7.3')");
+save(baseFile);
+
+matlab("clear"); clear; exit(2);
